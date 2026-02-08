@@ -9,7 +9,8 @@ on:
   push:
     # CHANGED: Trigger only on changes to the Dockerfile
     paths: [ "Dockerfile" ]
-
+  workflow_dispatch:
+  
 jobs:
   push_to_registry:
     name: Push Docker image to Docker Hub
@@ -44,8 +45,8 @@ jobs:
           # CHANGED: Replaced metadata-action output with manual tags (Latest + Version)
           # REPLACE 'my-repo-name' below with your actual repository name!
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/dsci310-ia3-docker:latest
-            ${{ secrets.DOCKER_USERNAME }}/dsci310-ia3-docker:${{ steps.version.outputs.TAG }}
+            ${{ secrets.DOCKER_USERNAME }}/dsci310-ia3-isaaca380-docker:latest
+            ${{ secrets.DOCKER_USERNAME }}/dsci310-ia3-isaaca380-docker:${{ steps.version.outputs.TAG }}
 
       # CHANGED: Added step to push the same version tag to GitHub
       - name: Push Tag to GitHub
@@ -63,6 +64,6 @@ jobs:
         uses: actions/attest-build-provenance@v2
         with:
           # REPLACE 'my-repo-name' below
-          subject-name: index.docker.io/${{ secrets.DOCKER_USERNAME }}/dsci310-ia3-docker
+          subject-name: index.docker.io/${{ secrets.DOCKER_USERNAME }}/dsci310-ia3-isaaca380-docker
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
